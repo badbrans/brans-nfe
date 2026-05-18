@@ -59,6 +59,8 @@ class Certificado:
             raise CertificadoError("Certificado nao encontrado no arquivo PFX.")
         if private_key is None:
             raise CertificadoError("Chave privada nao encontrada no arquivo PFX.")
+        if not isinstance(private_key, RSAPrivateKey):
+            raise CertificadoError("Apenas chaves RSA sao suportadas (ICP-Brasil exige RSA).")
 
         cnpj, razao_social = _extrair_identidade(certificate)
         validade = certificate.not_valid_after_utc.date()
