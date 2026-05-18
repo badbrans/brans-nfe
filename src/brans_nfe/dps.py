@@ -15,7 +15,6 @@ from .exceptions import ValidacaoDpsError
 from .models import NotaServico
 from .signer import NAMESPACE_DPS
 
-
 SUBSTITUICOES_LATIN1 = {
     "–": "-",
     "—": "-",
@@ -35,9 +34,7 @@ def construir_dps(nota: NotaServico, ambiente: Ambiente) -> dps_v1_00.Dps:
     cod_mun_prest = nota.servico.codigo_municipio_prestacao or cod_mun_emi
 
     tp_amb = (
-        ts.TstipoAmbiente.VALUE_1
-        if ambiente == Ambiente.PRODUCAO
-        else ts.TstipoAmbiente.VALUE_2
+        ts.TstipoAmbiente.VALUE_1 if ambiente == Ambiente.PRODUCAO else ts.TstipoAmbiente.VALUE_2
     )
 
     prest = _montar_prestador(nota)
@@ -78,13 +75,9 @@ def serializar_dps(dps: dps_v1_00.Dps) -> bytes:
 def _validar(nota: NotaServico) -> None:
     cep = nota.prestador.endereco.cep
     if len(cep) != 8:
-        raise ValidacaoDpsError(
-            "CEP da empresa prestadora invalido. Deve ter 8 digitos."
-        )
+        raise ValidacaoDpsError("CEP da empresa prestadora invalido. Deve ter 8 digitos.")
     if nota.tomador.endereco and len(nota.tomador.endereco.cep) != 8:
-        raise ValidacaoDpsError(
-            f"CEP do tomador '{nota.tomador.razao_social}' invalido."
-        )
+        raise ValidacaoDpsError(f"CEP do tomador '{nota.tomador.razao_social}' invalido.")
     c_trib_nac = nota.servico.codigo_tributacao_nacional
     if len(c_trib_nac) != 6:
         raise ValidacaoDpsError(
@@ -185,7 +178,7 @@ def _montar_valores(nota: NotaServico) -> tc.TcinfoValores:
 
     if pis_cofins and pis_cofins.retidos:
         tp_ret_code = "3"
-        v_ret_csll_total = (pis_cofins.valor_pis + pis_cofins.valor_cofins + retencoes.valor_csll)
+        v_ret_csll_total = pis_cofins.valor_pis + pis_cofins.valor_cofins + retencoes.valor_csll
     elif retencoes.valor_csll:
         tp_ret_code = "8"
         v_ret_csll_total = retencoes.valor_csll
@@ -250,10 +243,7 @@ def _montar_valores(nota: NotaServico) -> tc.TcinfoValores:
         )
 
     descontos = None
-    if (
-        nota.valores.desconto_incondicional
-        or nota.valores.desconto_condicional
-    ):
+    if nota.valores.desconto_incondicional or nota.valores.desconto_condicional:
         descontos = tc.TcvdescCondIncond(
             vDescIncond=_fmt(nota.valores.desconto_incondicional),
             vDescCond=_fmt(nota.valores.desconto_condicional),

@@ -81,9 +81,7 @@ class Certificado:
 
     def garantir_valido(self) -> None:
         if not self.valido:
-            raise CertificadoExpiradoError(
-                f"Certificado expirado em {self.validade.isoformat()}."
-            )
+            raise CertificadoExpiradoError(f"Certificado expirado em {self.validade.isoformat()}.")
 
 
 def _extrair_identidade(certificate: x509.Certificate) -> tuple[str, str]:

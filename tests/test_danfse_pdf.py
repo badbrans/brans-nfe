@@ -19,7 +19,6 @@ from brans_nfe.danfse_pdf import (
     gerar_danfse_pdf,
 )
 
-
 CHAVE = "3" * 50
 
 
@@ -68,9 +67,10 @@ def test_pdf_aceita_tomador_sem_endereco(nota_minima):
 
 
 def test_pdf_com_logo_bytes(nota_minima):
+    from io import BytesIO
+
     from reportlab.lib.pagesizes import A4
     from reportlab.pdfgen import canvas
-    from io import BytesIO
 
     buf = BytesIO()
     c = canvas.Canvas(buf, pagesize=A4)

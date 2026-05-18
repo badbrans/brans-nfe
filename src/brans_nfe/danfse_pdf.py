@@ -23,8 +23,7 @@ try:
     )
 except ImportError as exc:
     raise ImportError(
-        "reportlab nao instalado. Instale o extra DANFSe: "
-        'pip install "brans-nfe[danfse]"'
+        "reportlab nao instalado. Instale o extra DANFSe: " 'pip install "brans-nfe[danfse]"'
     ) from exc
 
 
@@ -157,9 +156,7 @@ def _cabecalho(
     logo_cell = _logo_flowable(logo) if logo else Paragraph("", estilos["valor"])
     identificacao = [
         Paragraph("DANFSe", estilos["titulo"]),
-        Paragraph(
-            "Documento Auxiliar da Nota Fiscal de Servicos Eletronica", estilos["subtitulo"]
-        ),
+        Paragraph("Documento Auxiliar da Nota Fiscal de Servicos Eletronica", estilos["subtitulo"]),
         Spacer(1, 2 * mm),
         Paragraph(f"<b>N&deg; NFS-e:</b> {numero_nfse or '-'}", estilos["valor"]),
         Paragraph(
@@ -385,18 +382,14 @@ def _bloco_tributacao(nota: NotaServico, estilos: dict) -> Table:
             Paragraph(_pct(aliq_pis * 100 if aliq_pis else 0), estilos["valor"]),
             Paragraph(_brl(pis_cofins.base_calculo if pis_cofins else 0), estilos["valor"]),
             Paragraph(_brl(valor_pis), estilos["valor"]),
-            Paragraph(
-                "Sim" if pis_cofins and pis_cofins.retidos else "Nao", estilos["valor"]
-            ),
+            Paragraph("Sim" if pis_cofins and pis_cofins.retidos else "Nao", estilos["valor"]),
         ],
         [
             Paragraph("COFINS", estilos["valor"]),
             Paragraph(_pct(aliq_cofins * 100 if aliq_cofins else 0), estilos["valor"]),
             Paragraph(_brl(pis_cofins.base_calculo if pis_cofins else 0), estilos["valor"]),
             Paragraph(_brl(valor_cofins), estilos["valor"]),
-            Paragraph(
-                "Sim" if pis_cofins and pis_cofins.retidos else "Nao", estilos["valor"]
-            ),
+            Paragraph("Sim" if pis_cofins and pis_cofins.retidos else "Nao", estilos["valor"]),
         ],
         [
             Paragraph("CSLL", estilos["valor"]),

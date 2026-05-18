@@ -28,9 +28,7 @@ def construir_cancelamento(
         raise ValidacaoDpsError("CNPJ do autor do evento deve ter 14 digitos.")
 
     tp_amb = (
-        te.TstipoAmbiente.VALUE_1
-        if ambiente == Ambiente.PRODUCAO
-        else te.TstipoAmbiente.VALUE_2
+        te.TstipoAmbiente.VALUE_1 if ambiente == Ambiente.PRODUCAO else te.TstipoAmbiente.VALUE_2
     )
 
     just_map = {

@@ -463,9 +463,7 @@ def _parse_lote_dfe(data: dict) -> RespostaDfe:
     return _montar_resposta_dfe(itens, ultimo_nsu, data)
 
 
-def _montar_resposta_dfe(
-    itens: List[ItemDfe], ultimo_nsu: int, data: dict | None
-) -> RespostaDfe:
+def _montar_resposta_dfe(itens: List[ItemDfe], ultimo_nsu: int, data: dict | None) -> RespostaDfe:
     if data is None:
         return RespostaDfe(itens=itens, ultimo_nsu=ultimo_nsu)
     status = data.get("StatusProcessamento")

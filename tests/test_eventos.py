@@ -35,9 +35,7 @@ def test_id_pre_diferentes_codigos():
     assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.CANCELAMENTO_POR_OFICIO, 5) == (
         base + "305101005"
     )
-    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.BLOQUEIO_POR_OFICIO, 12) == (
-        base + "305102012"
-    )
+    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.BLOQUEIO_POR_OFICIO, 12) == (base + "305102012")
 
 
 def test_cancelamento_gera_xml_com_e101101():

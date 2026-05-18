@@ -25,7 +25,6 @@ from brans_nfe import (
     Valores,
 )
 
-
 SENHA_TESTE = "senha-teste-123"
 CNPJ_TESTE = "12345678000190"
 RAZAO_SOCIAL_TESTE = "EMPRESA TESTE LTDA"
@@ -136,9 +135,8 @@ def cadeia_certs():
 @pytest.fixture
 def bundle_pem_file(cadeia_certs, tmp_path):
     root, intermediate, _leaf = cadeia_certs
-    pem = (
-        root.public_bytes(serialization.Encoding.PEM)
-        + intermediate.public_bytes(serialization.Encoding.PEM)
+    pem = root.public_bytes(serialization.Encoding.PEM) + intermediate.public_bytes(
+        serialization.Encoding.PEM
     )
     arquivo = tmp_path / "cadeia.pem"
     arquivo.write_bytes(pem)

@@ -229,9 +229,7 @@ def test_baixar_danfse_502_retenta_e_consegue(client_homologacao, monkeypatch):
     monkeypatch.setattr("brans_nfe.client.time.sleep", lambda _s: None)
     pdf_bytes = b"%PDF-1.4 ok"
     responses.add(responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", status=502)
-    responses.add(
-        responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", body=pdf_bytes, status=200
-    )
+    responses.add(responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", body=pdf_bytes, status=200)
     assert client_homologacao.baixar_danfse(CHAVE, tentativas=3) == pdf_bytes
     assert len(responses.calls) == 2
 
@@ -398,9 +396,7 @@ def test_baixar_danfse_retenta_em_excecao_de_rede(client_homologacao, monkeypatc
     responses.add(
         responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", body=requests.ConnectionError("timeout")
     )
-    responses.add(
-        responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", body=pdf_bytes, status=200
-    )
+    responses.add(responses.GET, f"{ADN_BASE}/danfse/{CHAVE}", body=pdf_bytes, status=200)
     assert client_homologacao.baixar_danfse(CHAVE, tentativas=3) == pdf_bytes
 
 

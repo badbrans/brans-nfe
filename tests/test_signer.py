@@ -27,9 +27,7 @@ def test_assinatura_inclui_signature_value_e_x509(nota_minima, certificado):
     root = etree.fromstring(assinado)
     assert root.find("ds:Signature", NS) is not None
     assert root.find("ds:Signature/ds:SignatureValue", NS).text
-    cert_el = root.find(
-        "ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509Certificate", NS
-    )
+    cert_el = root.find("ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509Certificate", NS)
     assert cert_el is not None and cert_el.text
 
 

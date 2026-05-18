@@ -29,9 +29,7 @@ def resolver_cadeia(
     if not bundle:
         return []
 
-    indice: dict[str, x509.Certificate] = {
-        c.subject.rfc4514_string(): c for c in bundle
-    }
+    indice: dict[str, x509.Certificate] = {c.subject.rfc4514_string(): c for c in bundle}
     cadeia: List[x509.Certificate] = []
     atual = leaf
     visitados: set[str] = set()

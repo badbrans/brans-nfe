@@ -42,9 +42,7 @@ def test_resolver_cadeia_sem_bundle_sem_adicionais(cadeia_certs):
 
 
 def test_resolver_cadeia_self_signed_para_imediatamente(certificado):
-    cadeia = resolver_cadeia(
-        certificado.certificate, [], bundle=[certificado.certificate]
-    )
+    cadeia = resolver_cadeia(certificado.certificate, [], bundle=[certificado.certificate])
     assert cadeia == []
 
 
