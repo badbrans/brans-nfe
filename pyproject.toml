@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "brans-nfe"
+version = "0.1.0"
+description = "Cliente Python para a NFS-e Nacional do Brasil (SEFIN) — assinatura, transmissão, consulta, cancelamento, DFe e DANFSe."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Raphael Brans", email = "raphael_brans@hotmail.com" }]
+keywords = ["nfse", "nfs-e", "sefin", "fiscal", "brasil", "nota fiscal", "icp-brasil"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+    "Natural Language :: Portuguese (Brazilian)",
+]
+dependencies = [
+    "nfelib>=2.5.2",
+    "xsdata>=24.0",
+    "cryptography>=42.0",
+    "lxml>=5.0",
+    "requests>=2.31",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+danfse = ["reportlab>=4.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "responses>=0.25",
+    "reportlab>=4.0",
+    "black>=24.0",
+    "isort>=5.13",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/badbrans/brans-nfe"
+Repository = "https://github.com/badbrans/brans-nfe"
+Issues = "https://github.com/badbrans/brans-nfe/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/brans_nfe"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/brans_nfe", "README.md", "LICENSE"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true

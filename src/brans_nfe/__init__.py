@@ -1,0 +1,107 @@
+from ._patches import aplicar_patches
+
+aplicar_patches()
+
+from .certificado import Certificado, validar_pfx
+from .client import NfseClient
+from .dps import construir_dps, serializar_dps
+from .enums import (
+    Ambiente,
+    CodigoEventoNfse,
+    CstPisCofins,
+    MotivoCancelamento,
+    RegimeEspecialTributacao,
+    RegimeTributario,
+    ResponsavelRetencaoIss,
+    StatusProcessamentoDfe,
+    TipoDocumentoDfe,
+    TipoEventoDfe,
+    TipoRetencaoPisCofins,
+    TributacaoIssqn,
+)
+from .eventos import construir_cancelamento, gerar_id_pre, serializar_evento
+from .exceptions import (
+    AssinaturaXmlError,
+    BransNfeError,
+    CancelamentoError,
+    CertificadoError,
+    CertificadoExpiradoError,
+    CertificadoSenhaInvalidaError,
+    ConsultaError,
+    DanfseIndisponivelError,
+    SincronizacaoDfeError,
+    TransmissaoError,
+    ValidacaoDpsError,
+)
+from .models import (
+    Endereco,
+    ItemDfe,
+    MensagemProcessamento,
+    NotaServico,
+    Prestador,
+    RespostaConsultaDps,
+    RespostaDfe,
+    RespostaEvento,
+    RespostaTransmissao,
+    Retencoes,
+    Servico,
+    Tomador,
+    TributacaoIss,
+    TributacaoPisCofins,
+    Valores,
+)
+from .signer import assinar_xml, gzip_b64
+
+__version__ = "0.1.0"
+
+__all__ = [
+    "Ambiente",
+    "AssinaturaXmlError",
+    "BransNfeError",
+    "CancelamentoError",
+    "Certificado",
+    "CertificadoError",
+    "CertificadoExpiradoError",
+    "CertificadoSenhaInvalidaError",
+    "CodigoEventoNfse",
+    "ConsultaError",
+    "CstPisCofins",
+    "DanfseIndisponivelError",
+    "Endereco",
+    "ItemDfe",
+    "MensagemProcessamento",
+    "MotivoCancelamento",
+    "NfseClient",
+    "NotaServico",
+    "Prestador",
+    "RegimeEspecialTributacao",
+    "RegimeTributario",
+    "RespostaConsultaDps",
+    "RespostaDfe",
+    "RespostaEvento",
+    "RespostaTransmissao",
+    "ResponsavelRetencaoIss",
+    "Retencoes",
+    "Servico",
+    "SincronizacaoDfeError",
+    "StatusProcessamentoDfe",
+    "TipoDocumentoDfe",
+    "TipoEventoDfe",
+    "TipoRetencaoPisCofins",
+    "Tomador",
+    "TransmissaoError",
+    "TributacaoIss",
+    "TributacaoIssqn",
+    "TributacaoPisCofins",
+    "ValidacaoDpsError",
+    "Valores",
+    "__version__",
+    "assinar_xml",
+    "construir_cancelamento",
+    "construir_dps",
+    "gerar_id_pre",
+    "gzip_b64",
+    "serializar_dps",
+    "serializar_evento",
+    "validar_pfx",
+]
