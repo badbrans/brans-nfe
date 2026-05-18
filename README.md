@@ -1,8 +1,10 @@
 # brans-nfe
 
-[![PyPI version](https://img.shields.io/pypi/v/brans-nfe.svg)](https://pypi.org/project/brans-nfe/)
-[![Python versions](https://img.shields.io/pypi/pyversions/brans-nfe.svg)](https://pypi.org/project/brans-nfe/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://img.shields.io/pypi/v/brans-nfe?style=flat-square&color=blue)](https://pypi.org/project/brans-nfe/)
+[![Python versions](https://img.shields.io/pypi/pyversions/brans-nfe?style=flat-square)](https://pypi.org/project/brans-nfe/)
+[![Downloads](https://static.pepy.tech/badge/brans-nfe)](https://pepy.tech/project/brans-nfe)
+[![Downloads/month](https://static.pepy.tech/badge/brans-nfe/month)](https://pepy.tech/project/brans-nfe)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Tests](https://github.com/badbrans/brans-nfe/actions/workflows/tests.yml/badge.svg)](https://github.com/badbrans/brans-nfe/actions/workflows/tests.yml)
 
 Cliente Python para a **NFS-e Nacional do Brasil** (SEFIN/Receita Federal) — emissão, consulta, cancelamento, distribuição de DFe e DANFSe, com assinatura XMLDSIG, mTLS com certificado A1 ICP-Brasil e payloads compactados em gzip+base64.
