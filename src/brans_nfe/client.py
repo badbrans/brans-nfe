@@ -157,7 +157,6 @@ class NfseClient:
         chave_acesso: str,
         motivo: str,
         motivo_codigo: MotivoCancelamento = MotivoCancelamento.OUTROS,
-        n_seq_evento: int = 1,
     ) -> RespostaEvento:
         evento = construir_cancelamento(
             chave_acesso=chave_acesso,
@@ -165,7 +164,6 @@ class NfseClient:
             cnpj_autor=self.certificado.cnpj,
             ambiente=self.ambiente,
             motivo_codigo=motivo_codigo,
-            n_seq_evento=n_seq_evento,
             versao_aplicativo=self.versao_aplicativo,
         )
         xml_bytes = serializar_evento(evento)

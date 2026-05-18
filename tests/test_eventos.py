@@ -19,23 +19,21 @@ MOTIVO_OK = "Erro no preenchimento dos dados do servico"
 
 
 def test_id_pre_formato():
-    id_pre = gerar_id_pre(CHAVE_OK, CodigoEventoNfse.CANCELAMENTO, 1)
+    id_pre = gerar_id_pre(CHAVE_OK, CodigoEventoNfse.CANCELAMENTO)
     assert id_pre.startswith("PRE")
-    assert len(id_pre) == 3 + 50 + 6 + 3
-    assert id_pre.endswith("101101001")
+    assert len(id_pre) == 3 + 50 + 6
+    assert id_pre.endswith("101101")
 
 
 def test_id_pre_chave_invalida_levanta():
     with pytest.raises(ValidacaoDpsError):
-        gerar_id_pre("123", CodigoEventoNfse.CANCELAMENTO, 1)
+        gerar_id_pre("123", CodigoEventoNfse.CANCELAMENTO)
 
 
 def test_id_pre_diferentes_codigos():
     base = "PRE" + CHAVE_OK
-    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.CANCELAMENTO_POR_OFICIO, 5) == (
-        base + "305101005"
-    )
-    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.BLOQUEIO_POR_OFICIO, 12) == (base + "305102012")
+    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.CANCELAMENTO_POR_OFICIO) == base + "305101"
+    assert gerar_id_pre(CHAVE_OK, CodigoEventoNfse.BLOQUEIO_POR_OFICIO) == base + "305102"
 
 
 def test_cancelamento_gera_xml_com_e101101():
@@ -54,6 +52,25 @@ def test_cancelamento_gera_xml_com_e101101():
     assert root.find(".//n:tpAmb", NS).text == "2"
     assert root.find(".//n:CNPJAutor", NS).text == "12345678000190"
     assert root.find(".//n:chNFSe", NS).text == CHAVE_OK
+
+
+def test_cancelamento_xml_versao_e_estrutura_v1_01():
+    evento = construir_cancelamento(
+        chave_acesso=CHAVE_OK,
+        motivo=MOTIVO_OK,
+        cnpj_autor="12345678000190",
+        ambiente=Ambiente.HOMOLOGACAO,
+    )
+    xml = serializar_evento(evento)
+    root = etree.fromstring(xml)
+    assert root.tag == f"{{{NS['n']}}}pedRegEvento"
+    assert root.get("versao") == "1.01"
+    inf = root.find("n:infPedReg", NS)
+    assert inf is not None
+    id_pre = inf.get("Id", "")
+    assert len(id_pre) == 59
+    assert id_pre == f"PRE{CHAVE_OK}101101"
+    assert inf.find("n:nPedRegEvento", NS) is None
 
 
 @pytest.mark.parametrize(
@@ -115,15 +132,3 @@ def test_cnpj_autor_invalido_rejeitado():
             cnpj_autor="123",
             ambiente=Ambiente.HOMOLOGACAO,
         )
-
-
-def test_n_seq_evento_aparece_no_id():
-    evento = construir_cancelamento(
-        chave_acesso=CHAVE_OK,
-        motivo=MOTIVO_OK,
-        cnpj_autor="12345678000190",
-        ambiente=Ambiente.HOMOLOGACAO,
-        n_seq_evento=7,
-    )
-    assert evento.infPedReg.Id.endswith("101101007")
-    assert evento.infPedReg.nPedRegEvento == "7"
